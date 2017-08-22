@@ -1,7 +1,8 @@
 class CLI
 
   def self.welcome
-    puts "Welcome to BadReads!"
+    puts "Welcome to Bad_Reads!"
+    puts "This is the place where you smear books."
   end
 
   def self.get_user

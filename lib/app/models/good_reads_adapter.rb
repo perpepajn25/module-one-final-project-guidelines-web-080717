@@ -1,16 +1,9 @@
-module GoodReads
 
-  class Adapter
-    attr_reader :user_book_input
 
-    def initialize(user_book_input)
-      @user_book_input = user_book_input
-    end
-
-    def find_or_create_book
+    def find_or_create_book(user_book_input)
       #makes request to API
       api = Goodreads::Client.new(:api_key => 'ytzqy6IgxnxFr4ieq6TCw', :api_secret => 'WntJehcPvpnI6ynAqBmK8tQ391Nb7o00FsLQXEH5U')
-      search = api.search_books(self.user_book_input)
+      search = api.search_books(user_book_input)
 
       #retrieves data
       book = search.results.work.first
@@ -20,6 +13,3 @@ module GoodReads
 
       Book.find_or_create_by(title: title, author: author, good_reads_rating: good_reads_rating)
     end
-
-  end
-end

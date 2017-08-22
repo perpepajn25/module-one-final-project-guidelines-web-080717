@@ -1,7 +1,7 @@
 class CLI
 
   def self.welcome
-    puts "Welcome to BadReads!"
+    puts "this is so we can see what a merge conflict looks like"
   end
 
   def self.get_user

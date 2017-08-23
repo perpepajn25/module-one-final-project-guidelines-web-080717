@@ -44,7 +44,9 @@ class CLI
   def self.write_a_review(user,book)
     puts "Write a review: go ahead... let us know how you really feel."
     content = gets.chomp
-    user.reviews.create(book: book, content: content)
+    puts "Please rate this book on a scale of 0-5."
+    rating = gets.chomp
+    user.reviews.create(book: book, content: content, user_rating: rating)
   end
 
 

@@ -75,14 +75,21 @@ end
     user.reviews.create(book: book, content: content, user_rating: rating)
   end
 
-  def self.author_response
+  def self.author_response(user)
     array = ["You have your entire life to be a jerk. Why not take today off?","Some day you’ll go far—and I really hope you stay there.","Do yourself a favor and ignore anyone who tells you to be yourself.","I wish we were better strangers.","Roses are red, violets are blue, I have 5 fingers, the 3rd one's for you.","Some cause happiness wherever they go... You, on the other hand, whenever you go."]
-    array.sample
+
+    puts "#{user.reviews.last.book.author}, or their ghost, is reading your review."
+    sleep(0.5)
+    puts "..."
+    sleep(0.5)
+    puts "#{user.reviews.last.book.author}: #{array.sample}"
+    self.continue
   end
 
+
+
   def self.thank_you
-    puts "Thank you for your feedback. Now here is a word from the author."
-    puts "#{self.author_response}"
+    puts "Thank you for your feedback."
   end
 
   def self.continue
@@ -94,6 +101,7 @@ end
     search = self.get_book
     book = self.confirm_book(search)
     self.prompt_for_review(user,book)
+    self.author_response(user)
     self.thank_you
     puts "Next..."
     self.options(user)
@@ -152,7 +160,5 @@ end
       self.options
     end
   end
-
-
 
 end

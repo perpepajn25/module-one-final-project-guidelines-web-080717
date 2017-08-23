@@ -30,7 +30,6 @@ class CLI
     puts Paint["What book would you like to warn people about?", :bold]
     ##perhaps we could randomize the output here from an array of a few different phrasings of the question (e.g."What book would you like to smear today?", "You look ready to destroy a book. What title would you like to smear?", etc.)
    gets.chomp
-   system "clear"
   end
 
   def self.prompt_confirm
@@ -59,7 +58,6 @@ def self.confirm_book(user_input)
   api = Goodreads::Client.new(:api_key => 'ytzqy6IgxnxFr4ieq6TCw', :api_secret => 'WntJehcPvpnI6ynAqBmK8tQ391Nb7o00FsLQXEH5U')
   search = api.search_books(user_input)
   unless search.total_results == "0"
-    # binding.pry
   book = search.results.work.first
   @title = book.best_book.title
   @author = book.best_book.author.name
@@ -108,6 +106,7 @@ end
 
   def self.write_a_review(user)
     search = self.get_book
+    system "clear"
     book = self.confirm_book(search)
     self.prompt_for_review(user,book)
     self.thank_you

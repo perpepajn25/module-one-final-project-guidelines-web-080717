@@ -18,11 +18,12 @@ class CLI
     puts "Welcome, #{user.username}!"
   end
 
-  def self.get_book
+def self.get_book
     puts "What book would you like to warn people about?"
     ##perhaps we could randomize the output here from an array of a few different phrasings of the question (e.g."What book would you like to smear today?", "You look ready to destroy a book. What title would you like to smear?", etc.)
-    gets.chomp
+   gets.chomp
   end
+
 
   #def self.is_this_the_book_that_you_mean?
   #end
@@ -41,18 +42,32 @@ class CLI
     Book.find_or_create_by(title: title, author: author)
   end
 
-  def self.write_a_review(user)
-
-    search = self.get_book
-    book = self.find_or_create_book(search)
-
+  def self.prompt_for_review(user,book)
     puts "Write a review: go ahead... let us know how you really feel."
     content = gets.chomp
     puts "Please rate this book on a scale of 0-5."
     rating = gets.chomp
     user.reviews.create(book: book, content: content, user_rating: rating)
   end
+  
 
+  def self.author_response
+    array = ["You have your entire life to be a jerk. Why not take today off?","Some day you’ll go far—and I really hope you stay there.","Do yourself a favor and ignore anyone who tells you to be yourself.","I wish we were better strangers.","Roses are red, violets are blue, I have 5 fingers, the 3rd one's for you.","Some cause happiness wherever they go... You, on the other hand, whenever you go."]
+    array.sample
+  end
+
+  def self.thank_you
+    puts "Thank you for your feedback. Now here is a word from the author."
+    puts "#{self.author_response}"
+  end
+
+  def self.write_a_review(user)
+    search = self.get_book
+    book = self.find_or_create_book(search)
+    self.promt_for_review(user,book)
+    self.thank_you
+  end
+  
   def self.options(user)
     
     puts "What would you like to do?"
@@ -64,7 +79,7 @@ class CLI
 
     case input
     when "a"
-      self.write_a_review(user, book)
+      self.write_a_review(user)
     when "b"
       puts "RETURN WORST AUTHOR"
     when "c"
@@ -72,7 +87,6 @@ class CLI
     else
       puts "We didn't recognize your selection."
       self.options
-    end
   end
 
 end

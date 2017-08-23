@@ -1,9 +1,11 @@
 class CLI
 
   def self.welcome
-
-    puts "Welcome to Bad_Reads!"
-    puts "This is the place where you smear books."
+    puts "Welcome to BadReads!"
+    puts "Did an author waste your precious time?"
+    puts "Is a book over-hyped?"
+    puts "Are you otherwise disgruntled over a piece of writing and want to share your outrage?"
+    puts "If so, then you've come to the right place!"
   end
 
   def self.get_user
@@ -11,6 +13,8 @@ class CLI
     username = gets.chomp
     User.find_or_create_by(username: username)
   end
+
+
 
   def self.find_or_create_book(user_book_input)
         #makes request to API

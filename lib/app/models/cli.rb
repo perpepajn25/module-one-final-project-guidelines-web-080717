@@ -85,6 +85,11 @@ end
     puts "#{self.author_response}"
   end
 
+  def self.continue
+    puts "Press any key to continue"
+    gets
+  end
+
   def self.write_a_review(user)
     search = self.get_book
     book = self.confirm_book(search)
@@ -94,6 +99,31 @@ end
     self.options(user)
   end
 
+  def self.user_stats(user)
+      puts "Stats options:"
+      puts "a =========== View all of your reviewed books"
+      puts "b =================== View all of you reviews"
+      input = gets.chomp
+
+      case input
+      when "a"
+        user.reviews.each do |review|
+            puts "Title: #{review.book.title}"
+            puts "Author: #{review.book.author}"
+            puts "Review: #{review.content}"
+            puts "===================="
+          end
+      when "b"
+        user.books.each do |book|
+          puts "Title: #{book.title}"
+          puts "Author: #{book.author}"
+          puts "====================="
+        end
+      end
+      self.continue
+      self.options(user)
+  end
+
   def self.options(user)
 
     puts "What would you like to do?"
@@ -101,7 +131,8 @@ end
     puts "a =========================== Write a scathing review"
     puts "b ========== Find the worst author that has ever been"
     puts "c ============ Find the worst book that has ever been"
-    puts "d ============================================ Logout"
+    puts "d ================================== Check your stats"
+    puts "e ============================================ Logout"
     input = gets.chomp
 
     case input
@@ -112,6 +143,8 @@ end
     when "c"
       puts "RETURN WORST BOOK"
     when "d"
+      self.user_stats(user)
+    when "e"
       puts "Thanks for visiting BadReads! May an author never waste your time again..."
       puts "But if they do, we're always here"
     else

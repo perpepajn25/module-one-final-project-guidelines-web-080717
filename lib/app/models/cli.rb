@@ -58,13 +58,19 @@ class CLI
 def self.confirm_book(user_input)
   api = Goodreads::Client.new(:api_key => 'ytzqy6IgxnxFr4ieq6TCw', :api_secret => 'WntJehcPvpnI6ynAqBmK8tQ391Nb7o00FsLQXEH5U')
   search = api.search_books(user_input)
-
+  unless search.total_results == "0"
+    # binding.pry
   book = search.results.work.first
   @title = book.best_book.title
   @author = book.best_book.author.name
   self.user_response
+  else
+    puts "Sorry, it looks like there were no results for that entry. Press any key to try another search."
+    gets
+    new_search = self.get_book
+    self.confirm_book(new_search)
+  end
 end
-
 
 
   def self.prompt_for_review(user,book)

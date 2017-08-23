@@ -6,5 +6,4 @@ user = CLI.get_user
 CLI.greet_user(user)
 CLI.options(user)
 
-
 "hasLISJDF,KSAJDFLKASJDLKFJASDF"

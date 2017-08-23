@@ -2,16 +2,16 @@ class CLI
   attr_accessor :title, :author
 
   def self.welcome
-    puts Paint["Welcome to BadReads!", :red, :bold]
-    # sleep(1.5)
+    puts "Welcome to " + Paint["Bad", :red, :bold] + "Reads! Courtesy of the " +  Paint["Good", :blue, :bold] + "Reads API"
+    sleep(1.5)
     puts "Did an author waste your precious time?"
-    # sleep (1.5)
+    sleep (1.5)
     puts "Is a book over-hyped?"
-    # sleep(1.5)
+    sleep(1.5)
     puts "Are you otherwise disgruntled over a piece of writing and want to share your outrage?"
-    # sleep(1.5)
+    sleep(1.5)
     puts "If so, then you've come to the right place!"
-    # sleep(2)
+    sleep(2)
   end
 
   def self.get_user
@@ -43,8 +43,9 @@ class CLI
     if response == "yes"
       Book.find_or_create_by(title: @title, author: @author)
     elsif response == "no"
+      system "clear"
       puts "Please modify your search."
-      puts "What book would you like to destroy?"
+      puts Paint["What book would you like to destroy?", :bold]
       new_search = gets.chomp
       system "clear"
       self.confirm_book(new_search)

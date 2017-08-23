@@ -17,6 +17,8 @@ class CLI
   def self.get_user
     puts "Please enter a username."
     username = gets.chomp
+    system "clear"
+
     User.find_or_create_by(username: username)
   end
 
@@ -28,6 +30,7 @@ class CLI
     puts "What book would you like to warn people about?"
     ##perhaps we could randomize the output here from an array of a few different phrasings of the question (e.g."What book would you like to smear today?", "You look ready to destroy a book. What title would you like to smear?", etc.)
    gets.chomp
+   system "clear"
   end
 
   def self.prompt_confirm
@@ -43,6 +46,7 @@ class CLI
       puts "Please modify your search."
       puts "What book would you like to destroy?"
       new_search = gets.chomp
+      system "clear"
       self.confirm_book(new_search)
     else
       puts "Please enter 'Yes' or 'No'."
@@ -76,8 +80,10 @@ end
   def self.prompt_for_review(user,book)
     puts "Write a review: go ahead... let us know how you really feel."
     content = gets.chomp
+    system "clear"
     puts "Please rate this book on a scale of 0-5."
     rating = gets.chomp
+    system "clear"
     user.reviews.create(book: book, content: content, user_rating: rating)
   end
 
@@ -103,6 +109,7 @@ end
   def self.continue
     puts "Press any key to continue"
     gets
+    system "clear"
   end
 
   def self.write_a_review(user)
@@ -122,6 +129,7 @@ end
       puts "b =========== View all of your reviewed books"
       puts "c =============== Return to main options menu"
       input = gets.chomp
+      system "clear"
 
       case input
       when "a"
@@ -158,7 +166,9 @@ end
     puts "c ============ Find the worst book that has ever been"
     puts "d ================================== Check your stats"
     puts "e ============================================ Logout"
+
     input = gets.chomp
+    system "clear"
 
     case input
     when "a"

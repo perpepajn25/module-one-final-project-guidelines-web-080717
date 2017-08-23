@@ -3,10 +3,15 @@ class CLI
 
   def self.welcome
     puts "Welcome to BadReads!"
+    sleep(1.5)
     puts "Did an author waste your precious time?"
+    sleep (1.5)
     puts "Is a book over-hyped?"
+    sleep(1.5)
     puts "Are you otherwise disgruntled over a piece of writing and want to share your outrage?"
+    sleep(1.5)
     puts "If so, then you've come to the right place!"
+    sleep(2)
   end
 
   def self.get_user

@@ -3,15 +3,15 @@ class CLI
 
   def self.welcome
     puts "Welcome to BadReads!"
-    sleep(1.5)
+    # sleep(1.5)
     puts "Did an author waste your precious time?"
-    sleep (1.5)
+    # sleep (1.5)
     puts "Is a book over-hyped?"
-    sleep(1.5)
+    # sleep(1.5)
     puts "Are you otherwise disgruntled over a piece of writing and want to share your outrage?"
-    sleep(1.5)
+    # sleep(1.5)
     puts "If so, then you've come to the right place!"
-    sleep(2)
+    # sleep(2)
   end
 
   def self.get_user
@@ -118,6 +118,7 @@ end
       puts "Stats options:"
       puts "a =================== View all of you reviews"
       puts "b =========== View all of your reviewed books"
+      puts "c =============== Return to main options menu"
       input = gets.chomp
 
       case input
@@ -128,15 +129,22 @@ end
             puts "Review: #{review.content}"
             puts "===================="
           end
+          self.continue
+          self.user_stats(user)
       when "b"
         user.books.each do |book|
           puts "Title: #{book.title}"
           puts "Author: #{book.author}"
           puts "====================="
         end
+        self.continue
+        self.user_stats(user)
+      when "c"
+        self.options(user)
+      else
+        puts "We didn't recognize your selection. Please enter the letter corresponding to your selection."
+        self.user_stats(user)
       end
-      self.continue
-      self.options(user)
   end
 
   def self.options(user)
@@ -163,8 +171,8 @@ end
       puts "Thanks for visiting BadReads! May an author never waste your time again..."
       puts "But if they do, we're always here"
     else
-      puts "We didn't recognize your selection."
-      self.options
+      puts "We didn't recognize your selection. Please enter the letter corresponding to your selection."
+      self.options(user)
     end
   end
 

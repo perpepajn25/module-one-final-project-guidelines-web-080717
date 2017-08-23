@@ -1,5 +1,5 @@
 class CLI
-  attr_accessor :title, :author
+  attr_accessor :title, :author, :book_search
 
   def self.welcome
     puts "Welcome to " + Paint["Bad", :red, :bold] + "Reads! Courtesy of the " +  Paint["Good", :blue, :bold] + "Reads API"
@@ -29,7 +29,7 @@ class CLI
   def self.get_book
     puts Paint["What book would you like to warn people about?", :bold]
     ##perhaps we could randomize the output here from an array of a few different phrasings of the question (e.g."What book would you like to smear today?", "You look ready to destroy a book. What title would you like to smear?", etc.)
-   gets.chomp
+   @book_search = gets.chomp
    system "clear"
   end
 
@@ -44,7 +44,7 @@ class CLI
       Book.find_or_create_by(title: @title, author: @author)
     elsif response == "no"
       system "clear"
-      puts "Please modify your search."
+      puts "Please modify your search. You last searched '#{@book_search}'"
       puts Paint["What book would you like to destroy?", :bold]
       new_search = gets.chomp
       system "clear"

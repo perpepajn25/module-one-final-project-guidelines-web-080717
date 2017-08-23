@@ -1,4 +1,5 @@
 class CLI
+  attr_accessor :title, :author
 
   def self.welcome
     puts "Welcome to BadReads!"
@@ -18,29 +19,48 @@ class CLI
     puts "Welcome, #{user.username}!"
   end
 
-def self.get_book
+  def self.get_book
     puts "What book would you like to warn people about?"
     ##perhaps we could randomize the output here from an array of a few different phrasings of the question (e.g."What book would you like to smear today?", "You look ready to destroy a book. What title would you like to smear?", etc.)
    gets.chomp
   end
 
-
-  #def self.is_this_the_book_that_you_mean?
-  #end
-
-  def self.find_or_create_book(user_input)
-    #makes request to API
-    api = Goodreads::Client.new(:api_key => 'ytzqy6IgxnxFr4ieq6TCw', :api_secret => 'WntJehcPvpnI6ynAqBmK8tQ391Nb7o00FsLQXEH5U')
-
-    search = api.search_books(user_input)
-
-        #retrieves data
-    book = search.results.work.first
-    title = book.best_book.title
-    author = book.best_book.author.name
-
-    Book.find_or_create_by(title: title, author: author)
+  def self.prompt_confirm
+    puts "Did you mean #{@title} by #{@author}? Yes or No:"
+    response = gets.chomp.downcase
   end
+
+  def self.user_response
+    response = self.prompt_confirm
+    if response == "yes"
+      Book.find_or_create_by(title: @title, author: @author)
+    elsif response == "no"
+      puts "Please modify your search."
+      puts "What book would you like to destroy?"
+      new_search = gets.chomp
+      self.confirm_book(new_search)
+    else
+      puts "Please enter 'Yes' or 'No'."
+      self.user_response
+    end
+
+  end
+  #get book
+  #confirm book
+    #return title and author
+      #if yes, create book
+      #if no, ask to modify search term
+def self.confirm_book(user_input)
+  api = Goodreads::Client.new(:api_key => 'ytzqy6IgxnxFr4ieq6TCw', :api_secret => 'WntJehcPvpnI6ynAqBmK8tQ391Nb7o00FsLQXEH5U')
+  search = api.search_books(user_input)
+
+  book = search.results.work.first
+  @title = book.best_book.title
+  @author = book.best_book.author.name
+  self.user_response
+end
+
+
 
   def self.prompt_for_review(user,book)
     puts "Write a review: go ahead... let us know how you really feel."
@@ -49,7 +69,6 @@ def self.get_book
     rating = gets.chomp
     user.reviews.create(book: book, content: content, user_rating: rating)
   end
-  
 
   def self.author_response
     array = ["You have your entire life to be a jerk. Why not take today off?","Some day you’ll go far—and I really hope you stay there.","Do yourself a favor and ignore anyone who tells you to be yourself.","I wish we were better strangers.","Roses are red, violets are blue, I have 5 fingers, the 3rd one's for you.","Some cause happiness wherever they go... You, on the other hand, whenever you go."]
@@ -63,13 +82,15 @@ def self.get_book
 
   def self.write_a_review(user)
     search = self.get_book
-    book = self.find_or_create_book(search)
-    self.promt_for_review(user,book)
+    book = self.confirm_book(search)
+    self.prompt_for_review(user,book)
     self.thank_you
+    puts "Next..."
+    self.options(user)
   end
-  
+
   def self.options(user)
-    
+
     puts "What would you like to do?"
     puts "Here are your options:"
     puts "a =========================== Write a scathing review"
@@ -87,6 +108,9 @@ def self.get_book
     else
       puts "We didn't recognize your selection."
       self.options
+    end
   end
+
+
 
 end

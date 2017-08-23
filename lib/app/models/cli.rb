@@ -1,13 +1,22 @@
 class CLI
 
   def self.welcome
-    puts "this is so we can see what a merge conflict looks like"
+    puts "Welcome to BadReads!"
   end
 
   def self.get_user
     puts "Please enter a username."
     username = gets.chomp
     User.find_or_create_by(username: username)
+  end
+
+  def self.get_book
+    puts "Which book would you like to write a review?"
+    title = gets.chomp
+  end
+
+  def self.create_review
+    
   end
 
   def self.find_or_create_book(user_book_input)

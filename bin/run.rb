@@ -4,7 +4,10 @@ require 'pry'
 CLI.welcome
 user = CLI.get_user
 CLI.greet_user(user)
-CLI.choose_book
+search = CLI.get_book
+CLI.find_or_create_book(search)
+
+
 
 
 

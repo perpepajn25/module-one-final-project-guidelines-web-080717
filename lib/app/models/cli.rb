@@ -14,11 +14,18 @@ class CLI
     User.find_or_create_by(username: username)
   end
 
+  def self.greet_user
+    puts "Welcome, #{user}!"
+  end
 
-
-  def self.find_or_create_book(user_book_input)
-        #makes request to API
+  def self.choose_book
+    puts "What book would you like to warn people about?"
+    ##perhaps we could randomize the output here from an array of a few different phrasings of the question (e.g."What book would you like to smear today?", "You look ready to destroy a book. What title would you like to smear?", etc.)
+    user_book_input = gets.chomp
+    
+    #makes request to API
     api = Goodreads::Client.new(:api_key => 'ytzqy6IgxnxFr4ieq6TCw', :api_secret => 'WntJehcPvpnI6ynAqBmK8tQ391Nb7o00FsLQXEH5U')
+
     search = api.search_books(user_book_input)
 
         #retrieves data

@@ -21,7 +21,7 @@ class CLI
   def self.get_book
     puts "What book would you like to warn people about?"
     ##perhaps we could randomize the output here from an array of a few different phrasings of the question (e.g."What book would you like to smear today?", "You look ready to destroy a book. What title would you like to smear?", etc.)
-    user_book_input = gets.chomp
+    gets.chomp
   end
 
   #def self.is_this_the_book_that_you_mean?
@@ -41,7 +41,11 @@ class CLI
     Book.find_or_create_by(title: title, author: author)
   end
 
-  def self.write_a_review(user,book)
+  def self.write_a_review(user)
+
+    search = self.get_book
+    book = self.find_or_create_book(search)
+
     puts "Write a review: go ahead... let us know how you really feel."
     content = gets.chomp
     puts "Please rate this book on a scale of 0-5."
@@ -49,6 +53,26 @@ class CLI
     user.reviews.create(book: book, content: content, user_rating: rating)
   end
 
+  def self.options(user)
+    
+    puts "What would you like to do?"
+    puts "Here are your options:"
+    puts "a =========================== Write a scathing review"
+    puts "b ========== Find the worst author that has ever been"
+    puts "c ============ Find the worst book that has ever been"
+    input = gets.chomp
 
+    case input
+    when "a"
+      self.write_a_review(user, book)
+    when "b"
+      puts "RETURN WORST AUTHOR"
+    when "c"
+      puts "RETURN WORST BOOK"
+    else
+      puts "We didn't recognize your selection."
+      self.options
+    end
+  end
 
 end

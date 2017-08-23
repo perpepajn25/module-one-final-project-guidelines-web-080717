@@ -32,6 +32,7 @@ GEM
     minitest (5.10.1)
     netrc (0.11.0)
     oauth (0.5.3)
+    paint (2.0.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -66,6 +67,7 @@ PLATFORMS
 
 DEPENDENCIES
   goodreads
+  paint
   pry
   require_all
   sinatra-activerecord

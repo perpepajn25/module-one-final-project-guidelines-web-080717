@@ -2,7 +2,7 @@ class CLI
   attr_accessor :title, :author
 
   def self.welcome
-    puts "Welcome to BadReads!"
+    puts Paint["Welcome to BadReads!", :red, :bold]
     # sleep(1.5)
     puts "Did an author waste your precious time?"
     # sleep (1.5)
@@ -15,7 +15,7 @@ class CLI
   end
 
   def self.get_user
-    puts "Please enter a username."
+    puts Paint["Please enter a username.", :bold]
     username = gets.chomp
     system "clear"
 
@@ -27,14 +27,14 @@ class CLI
   end
 
   def self.get_book
-    puts "What book would you like to warn people about?"
+    puts Paint["What book would you like to warn people about?", :bold]
     ##perhaps we could randomize the output here from an array of a few different phrasings of the question (e.g."What book would you like to smear today?", "You look ready to destroy a book. What title would you like to smear?", etc.)
    gets.chomp
    system "clear"
   end
 
   def self.prompt_confirm
-    puts "Did you mean #{@title} by #{@author}? Yes or No:"
+    puts Paint["Did you mean #{@title} by #{@author}? Yes or No:", :bold]
     response = gets.chomp.downcase
   end
 
@@ -49,16 +49,11 @@ class CLI
       system "clear"
       self.confirm_book(new_search)
     else
-      puts "Please enter 'Yes' or 'No'."
+      puts Paint["Please enter 'Yes' or 'No'.", :bold]
       self.user_response
     end
-
   end
-  #get book
-  #confirm book
-    #return title and author
-      #if yes, create book
-      #if no, ask to modify search term
+
 def self.confirm_book(user_input)
   api = Goodreads::Client.new(:api_key => 'ytzqy6IgxnxFr4ieq6TCw', :api_secret => 'WntJehcPvpnI6ynAqBmK8tQ391Nb7o00FsLQXEH5U')
   search = api.search_books(user_input)
@@ -69,7 +64,7 @@ def self.confirm_book(user_input)
   @author = book.best_book.author.name
   self.user_response
   else
-    puts "Sorry, it looks like there were no results for that entry. Press any key to try another search."
+    puts Paint["Sorry, it looks like there were no results for that entry. Press any key to try another search.", :bold]
     gets
     new_search = self.get_book
     self.confirm_book(new_search)
@@ -78,10 +73,10 @@ end
 
 
   def self.prompt_for_review(user,book)
-    puts "Write a review: go ahead... let us know how you really feel."
+    puts Paint["Write a review: go ahead... let us know how you really feel.", :bold]
     content = gets.chomp
     system "clear"
-    puts "Please rate this book on a scale of 0-5."
+    puts Paint["Please rate this book on a scale of 0-5.", :bold]
     rating = gets.chomp
     system "clear"
     user.reviews.create(book: book, content: content, user_rating: rating)
@@ -97,9 +92,7 @@ end
     puts "..."
     sleep(0.5)
     puts "#{user.reviews.last.book.author}: '#{array.sample}'"
-    self.continue
   end
-
 
 
   def self.thank_you
@@ -107,7 +100,7 @@ end
   end
 
   def self.continue
-    puts "Press any key to continue"
+    puts Paint["Press any key to continue", :bold]
     gets
     system "clear"
   end
@@ -159,7 +152,7 @@ end
 
   def self.options(user)
 
-    puts "What would you like to do?"
+    puts Paint["What would you like to do?", :bold]
     puts "Here are your options:"
     puts "a =========================== Write a scathing review"
     puts "b ========== Find the worst author that has ever been"
@@ -174,16 +167,18 @@ end
     when "a"
       self.write_a_review(user)
     when "b"
+
       puts "RETURN WORST AUTHOR"
     when "c"
       puts "RETURN WORST BOOK"
     when "d"
       self.user_stats(user)
     when "e"
-      puts "Thanks for visiting BadReads! May an author never waste your time again..."
-      puts "But if they do, we're always here"
+      puts Paint["Thanks for visiting BadReads! May an author never waste your time again...", :bold]
+      sleep(1)
+      puts Paint["But if they do, come back soon!", :bold]
     else
-      puts "We didn't recognize your selection. Please enter the letter corresponding to your selection."
+      puts Paint["We didn't recognize your selection. Please enter the letter corresponding to your selection.", :bold]
       self.options(user)
     end
   end

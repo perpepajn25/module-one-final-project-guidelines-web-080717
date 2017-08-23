@@ -96,6 +96,7 @@ end
     puts "a =========================== Write a scathing review"
     puts "b ========== Find the worst author that has ever been"
     puts "c ============ Find the worst book that has ever been"
+    puts "d ============================================ Logout"
     input = gets.chomp
 
     case input
@@ -105,6 +106,9 @@ end
       puts "RETURN WORST AUTHOR"
     when "c"
       puts "RETURN WORST BOOK"
+    when "d"
+      puts "Thanks for visiting BadReads! May an author never waste your time again..."
+      puts "But if they do, we're always here"
     else
       puts "We didn't recognize your selection."
       self.options

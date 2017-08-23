@@ -15,7 +15,7 @@ class CLI
   end
 
   def self.greet_user(user)
-    puts "Welcome, #{user}!"
+    puts "Welcome, #{user.username}!"
   end
 
   def self.get_book

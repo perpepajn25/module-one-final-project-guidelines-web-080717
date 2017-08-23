@@ -95,14 +95,15 @@ end
     book = self.confirm_book(search)
     self.prompt_for_review(user,book)
     self.thank_you
+    self.continue
     puts "Next..."
     self.options(user)
   end
 
   def self.user_stats(user)
       puts "Stats options:"
-      puts "a =========== View all of your reviewed books"
-      puts "b =================== View all of you reviews"
+      puts "a =================== View all of you reviews"
+      puts "b =========== View all of your reviewed books"
       input = gets.chomp
 
       case input

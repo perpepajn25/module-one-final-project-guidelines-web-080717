@@ -41,6 +41,12 @@ class CLI
     Book.find_or_create_by(title: title, author: author)
   end
 
+  def self.write_a_review(user,book)
+    puts "Write a review: go ahead... let us know how you really feel."
+    content = gets.chomp
+    user.reviews.create(book: book, content: content)
+  end
+
 
 
 end

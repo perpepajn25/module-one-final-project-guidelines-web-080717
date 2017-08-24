@@ -62,7 +62,9 @@ def self.confirm_book(user_input)
   @author = book.best_book.author.name
   self.user_response
   else
-    puts Paint["Sorry, it looks like there were no results for that entry. Press any key to try another search.", :bold]
+    system 'clear'
+    puts "Sorry, it looks like there were no results for '#{@book_search}'."
+    puts Paint["Press any key to try another search.", :bold]
     gets
     new_search = self.get_book
     self.confirm_book(new_search)

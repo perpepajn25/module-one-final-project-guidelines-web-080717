@@ -125,8 +125,8 @@ end
 
       case input
       when "a"
-        user.reviews.each do |review|
-            puts "Title: #{review.book.title}"
+        user.reviews.sort_by { |review| review.book.author }.each do |review|
+            puts "Title:  #{review.book.title}"
             puts "Author: #{review.book.author}"
             puts "Review: #{review.content}"
             puts "Rating: #{review.user_rating}"
@@ -136,7 +136,7 @@ end
           self.user_stats(user)
       when "b"
         user.books.each do |book|
-          puts "Title: #{book.title}"
+          puts "Title:  #{book.title}"
           puts "Author: #{book.author}"
           puts "====================="
         end

@@ -1,5 +1,5 @@
 class CLI
-  attr_accessor :title, :author, :book_search
+  attr_accessor :title, :author, :book_search, :rating
 
   def self.welcome
     puts "Welcome to " + Paint["Bad", :red, :bold] + "Reads! Courtesy of the " +  Paint["Good", :blue, :bold] + "Reads API"
@@ -75,13 +75,15 @@ end
     content = gets.chomp
     system "clear"
     puts Paint["Please rate this book on a scale of 0-5.", :bold]
-    rating = gets.chomp
+    @rating = gets.chomp.to_i
     system "clear"
-    user.reviews.create(book: book, content: content, user_rating: rating)
+    user.reviews.create(book: book, content: content, user_rating: @rating)
   end
 
   def self.author_response(user)
-    array = ["You have your entire life to be a jerk. Why not take today off?","Some day you’ll go far—and I really hope you stay there.","Do yourself a favor and ignore anyone who tells you to be yourself.","I wish we were better strangers.","Roses are red, violets are blue, I have 5 fingers, the 3rd one's for you.","Some cause happiness wherever they go... You, on the other hand, whenever you go."]
+    bad_review_array = ["You have your entire life to be a jerk. Why not take today off?","Some day you’ll go far—and I really hope you stay there.","Do yourself a favor and ignore anyone who tells you to be yourself.","I wish we were better strangers.","Roses are red, violets are blue, I have 5 fingers, the 3rd one's for you.","Some cause happiness wherever they go... You, on the other hand, whenever you go."]
+
+    good_review_array = ["Wait... really? You liked it?", "This means a lot. I wrote this during a tough time, and thoughts like this get me through the day.", "No, it's actually not good.", "New phone, whodis?"]
 
     puts "#{user.reviews.last.book.author} is reading your review."
     sleep(0.5)
@@ -89,7 +91,13 @@ end
     sleep(0.5)
     puts "..."
     sleep(0.5)
-    puts "#{user.reviews.last.book.author}: '#{array.sample}'"
+
+    if @rating >= 4
+      puts "#{user.reviews.last.book.author}: '#{good_review_array.sample}'"
+    else
+      puts "#{user.reviews.last.book.author}: '#{bad_review_array.sample}'"
+    end
+
   end
 
 

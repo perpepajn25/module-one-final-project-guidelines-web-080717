@@ -28,7 +28,6 @@ class CLI
 
   def self.get_book
     puts Paint["What book would you like to warn people about?", :bold]
-    ##perhaps we could randomize the output here from an array of a few different phrasings of the question (e.g."What book would you like to smear today?", "You look ready to destroy a book. What title would you like to smear?", etc.)
    @book_search = gets.chomp
   end
 
@@ -130,6 +129,7 @@ end
             puts "Title: #{review.book.title}"
             puts "Author: #{review.book.author}"
             puts "Review: #{review.content}"
+            puts "Rating: #{review.user_rating}"
             puts "===================="
           end
           self.continue

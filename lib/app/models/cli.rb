@@ -135,7 +135,7 @@ end
           self.continue
           self.user_stats(user)
       when "b"
-        user.books.each do |book|
+        user.books.uniq.sort_by { |book| book.author }.each do |book|
           puts "Title:  #{book.title}"
           puts "Author: #{book.author}"
           puts "====================="

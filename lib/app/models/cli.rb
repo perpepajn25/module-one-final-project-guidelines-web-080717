@@ -133,10 +133,9 @@ end
       hash[author] = author_array.count(author)
     end.sort.last[0]
   end
-
-  def self.find_worst_book
-
-  end
+  #
+  # def self.find_worst_book
+  # end
 
   def self.user_stats(user)
       puts "Stats options:"
@@ -179,9 +178,9 @@ end
     puts "Here are your options:"
     puts "a =========================== Write a scathing review"
     puts "b ========== Find the worst author that has ever been"
-    puts "c ============ Find the worst book that has ever been"
-    puts "d ================================== Check your stats"
-    puts "e ============================================ Logout"
+    # puts "c ============ Find the worst book that has ever been"
+    puts "c ================================== Check your stats"
+    puts "d ============================================ Logout"
 
     input = gets.chomp
     system "clear"
@@ -195,11 +194,11 @@ end
       sleep(1.5)
       self.continue
       self.options(user)
+    # when "c"
+    #   puts "RETURN WORST BOOK"
     when "c"
-      puts "RETURN WORST BOOK"
-    when "d"
       self.user_stats(user)
-    when "e"
+    when "d"
       puts Paint["Thanks for visiting BadReads! May an author never waste your time again...", :bold]
       sleep(1)
       puts Paint["But if they do, come back soon!", :bold]

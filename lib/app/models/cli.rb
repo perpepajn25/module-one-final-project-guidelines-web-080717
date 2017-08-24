@@ -44,9 +44,9 @@ class CLI
       system "clear"
       puts "Please modify your search. You last searched '#{@book_search}'"
       puts Paint["What book would you like to destroy?", :bold]
-      new_search = gets.chomp
+      @book_search = gets.chomp
       system "clear"
-      self.confirm_book(new_search)
+      self.confirm_book(@book_search)
     else
       puts Paint["Please enter 'Yes' or 'No'.", :bold]
       self.user_response

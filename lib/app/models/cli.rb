@@ -116,6 +116,19 @@ end
     self.options(user)
   end
 
+  def self.find_worst_author
+    author_array = Book.all.collect do |book|
+      book.author
+    end
+    author_array.each_with_object({}) do |author,hash|
+      hash[author] = author_array.count(author)
+    end.sort.last[0]
+  end
+
+  def self.find_worst_book
+
+  end
+
   def self.user_stats(user)
       puts "Stats options:"
       puts "a =================== View all of you reviews"
@@ -167,8 +180,11 @@ end
     when "a"
       self.write_a_review(user)
     when "b"
-
-      puts "RETURN WORST AUTHOR"
+      puts "The worst author according to BadReads is #{self.find_worst_author}."
+      puts Paint["Sorry #{self.find_worst_author.split.first} :(", :green, :bold]
+      sleep(1.5)
+      self.continue
+      self.options(user)
     when "c"
       puts "RETURN WORST BOOK"
     when "d"
